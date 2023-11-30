@@ -7,6 +7,9 @@ class EventSystem:
     def add_event(self, name):
         pass
 
+    def activate(self):
+        pass
+
 
 def run():
     eventSystem = EventSystem()
