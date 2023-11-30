@@ -9,7 +9,7 @@ class EventSystem:
         pass
 
     def remove_event(self, name):
-        pass
+        ...
 
 
 
