@@ -1,0 +1,15 @@
+----------------------------------------
+ES:
+-----------------------------------------------
+@subscribe {apply_addr, ET}
+@invoke {ET, ED}
+
+()update_event -> post(apply_addr, ET, ED)
+-----------------------------------------------
+BM:
+-----------------------------------------------
+@update_event {ET, ED}
+
+()invoke -> post('server_addr/invoke', ET, ED)
+()subscribe -> post('server_addr/subscribe', ET, apply_addr)
+-----------------------------------------------
