@@ -1,13 +1,18 @@
-import os
-import sys
-import pathlib
-
-parent_dir = str(pathlib.Path(__file__).resolve().parents[1])
-sys.path.insert(0, parent_dir)
-
-from base_manager import BaseComponent
+from manager import manager
 
 
-class GUIComponent(BaseComponent):
+class GUIComponent():
+
     def __init__(self):
-        print('GUI COMPONENT INIT')
+        with open('gui/init.txt', 'w') as f:
+            print('GUI COMPONENT INIT', file=f)
+    
+    def run(self, _):
+        with open('gui/run.txt', 'w') as f:
+            print('GUI RUN', file=f)
+
+
+gui = GUIComponent()
+
+
+manager.subscribe('START_APP_EVENT', gui.run)

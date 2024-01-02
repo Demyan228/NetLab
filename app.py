@@ -1,4 +1,7 @@
 from collections import defaultdict
+import json
+import requests
+from flask import Flask, request
 
 
 class EventSystem:
@@ -10,18 +13,38 @@ class EventSystem:
             update_event(event_type, event_data, sub_addr)
 
     def subscribe(self, sub_addr, event_type):
-        self.subs[event_type].append(sub_addr)
+        with open('eslog.txt', 'a') as file:
+            self.subs[event_type].append(sub_addr)
+            file.write(f'{sub_addr} || {event_type}\n')
 
 
 def update_event(event_type, event_data, apply_addr):
-    pass
+    data = json.dumps(
+        {
+            "event_type": event_type,
+            "event_data": event_data,
+        }
+    )
+
+    requests.post(apply_addr, json=data)
 
 
-#transport 
+app = Flask(__name__)
+es = EventSystem()
+
+
+@app.route("/subscribe")
 def subscribe():
-    pass
+    data = request.get_json()
+    sub_addr = data["apply_addr"]
+    event_type = data["event_type"]
+    print(f'ES SUB: {sub_addr} || {event_type}', flush=True)
+    es.subscribe(sub_addr, event_type)
+    return "", 200
 
 
-#transport 
+@app.route("/invoke")
 def invoke():
-    pass
+    data = request.get_json()
+    es.invoke(event_type=data["event_type"], event_data=data["event_data"])
+    return "", 200

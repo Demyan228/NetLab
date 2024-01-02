@@ -1,14 +1,15 @@
-import os
-import sys
-import pathlib
-
-parent_dir = str(pathlib.Path(__file__).resolve().parents[1])
-sys.path.insert(0, parent_dir)
-
-from base_manager import BaseComponent
+from manager import manager
 
 
-class AssemblerComponent(BaseComponent):
+class AssemblerComponent():
 
     def __init__(self):
         print('ASSEMBLER COMPONENT INIT')
+    
+    def run(self, _):
+        print('ASSEMBLER RUN')
+
+
+assembler = AssemblerComponent()
+
+manager.subscribe('START_APP_EVENT', assembler.run)
