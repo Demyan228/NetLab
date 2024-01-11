@@ -1,5 +1,8 @@
+import sys
 from collections import defaultdict
 import json
+from time import sleep
+
 import requests
 from flask import Flask, request
 
@@ -32,7 +35,6 @@ def update_event(event_type, event_data, apply_addr):
 app = Flask(__name__)
 es = EventSystem()
 
-
 @app.route("/subscribe")
 def subscribe():
     data = request.get_json()
@@ -48,3 +50,10 @@ def invoke():
     data = request.get_json()
     es.invoke(event_type=data["event_type"], event_data=data["event_data"])
     return "", 200
+
+
+if __name__ == '__main__':
+    app.run("localhost", port=5234)
+
+
+
