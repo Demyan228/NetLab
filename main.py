@@ -1,6 +1,5 @@
 from subprocess import Popen
 from app import es
-from time import sleep
 
 
 def get_component_addres(ip, port):
@@ -27,6 +26,5 @@ for port, cmd in enumerate(componets.values(), PORT_START):
     p = Popen([prefix, cmd, addr, server_addres])
     p.communicate()
 
-sleep(5)
 print('START', flush=True)
 es.invoke('START_APP_EVENT', '')

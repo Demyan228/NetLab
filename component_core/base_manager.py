@@ -5,12 +5,16 @@ import requests
 from flask import Flask, request
 
 
+def get_app(name: str) -> Flask:
+    return Flask(name)
+
+
 class BaseManager:
 
     def __init__(self):
-        self.app = Flask(__name__)
         self.apply_addr = sys.argv[1] + '/update'
         self.server_addr = sys.argv[2]
+        self.app = get_app(sys.argv[0])
         self.update_event = self.app.route('/update')(self._update_event)
         self.addres = sys.argv[1]
         self.ip, self.port = self.addres.split(':')
