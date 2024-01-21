@@ -1,10 +1,11 @@
 from manager import manager
+from my_tools import log
 
 
 class TrainerComponent():
 
     def __init__(self):
-        print('TRAINER COMPONENT INIT')
+        log('TRAINER COMPONENT INIT')
     
     def run(self, train_data):
         """
@@ -13,7 +14,7 @@ class TrainerComponent():
             dataset_path
             hyperparams
         """
-        print('TRAINER RUN')
+        log('TRAINER RUN')
 
 
 trainer = TrainerComponent()

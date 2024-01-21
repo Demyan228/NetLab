@@ -1,11 +1,13 @@
 import sys
 from collections import defaultdict
+import sys
 import json
-from time import sleep
-
 import requests
 from flask import Flask, request
+from my_tools import log
 
+
+log('START IN APP')
 
 class EventSystem:
     def __init__(self):
@@ -14,11 +16,12 @@ class EventSystem:
     def invoke(self, event_type, event_data):
         for sub_addr in self.subs[event_type]:
             update_event(event_type, event_data, sub_addr)
+            log(sub_addr)
 
     def subscribe(self, sub_addr, event_type):
-        with open('eslog.txt', 'a') as file:
+        with open("eslog.txt", "a") as file:
             self.subs[event_type].append(sub_addr)
-            file.write(f'{sub_addr} || {event_type}\n')
+            file.write(f"{sub_addr} || {event_type}\n")
 
 
 def update_event(event_type, event_data, apply_addr):
@@ -48,7 +51,6 @@ def subscribe():
     print(f'ES SUB: {sub_addr} || {event_type}', flush=True)
     es.subscribe(sub_addr, event_type)
     return "", 200
-
 
 
 if __name__ == '__main__':

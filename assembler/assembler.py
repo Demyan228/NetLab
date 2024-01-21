@@ -1,13 +1,14 @@
 from manager import manager
+from my_tools import log
 
 
 class AssemblerComponent():
 
     def __init__(self):
-        print('ASSEMBLER COMPONENT INIT')
+        log('ASSEMBLER COMPONENT INIT')
     
     def run(self, _):
-        print('ASSEMBLER RUN')
+        log('ASSEMBLER RUN')
 
 
 assembler = AssemblerComponent()

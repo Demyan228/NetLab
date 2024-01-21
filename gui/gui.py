@@ -1,15 +1,14 @@
 from manager import manager
+from my_tools import log
 
 
 class GUIComponent():
 
     def __init__(self):
-        with open('gui/init.txt', 'w') as f:
-            print('GUI COMPONENT INIT', file=f)
+        log('GUI COMPONENT INIT')
     
     def run(self, _):
-        with open('gui/run.txt', 'w') as f:
-            print('GUI RUN', file=f)
+        log('GUI RUN')
 
 
 gui = GUIComponent()
