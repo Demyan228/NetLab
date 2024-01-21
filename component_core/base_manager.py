@@ -25,7 +25,7 @@ class BaseManager:
         self.app.run('localhost', port=int(self.port))
 
     def _update_event(self):
-        json_content = request.get_json()
+        json_content = request.json
         event_type = json_content['event_type']
         event_data = json_content['event_data']
         for event_handler in self.events_handlers[event_type]:
@@ -37,22 +37,18 @@ class BaseManager:
         self._subscribe(event_type)
 
     def _subscribe(self, event_type):
-        data = json.dumps(
-                    {
-                        'event_type': event_type,
-                        'apply_addr': self.apply_addr,
-                    }
-                )
+        data = {
+            'event_type': event_type,
+            'apply_addr': self.apply_addr,
+        }
         url = f'{self.server_addr}/subscribe'
         requests.post(url, json=data)
 
     def invoke(self, event_type, event_data):
-        data = json.dumps(
-                    {
-                        'event_type': event_type, 
-                        'event_data': event_data,
-                    }
-                )
-        url = f'{self.server_addr}/{self.invoke}'
-        requests.post(url, json=data)
+        data = {
+            'event_type': event_type,
+            'event_data': event_data,
+        }
 
+        url = f'{self.server_addr}/invoke'
+        requests.post(url, json=data)

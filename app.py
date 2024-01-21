@@ -22,22 +22,27 @@ class EventSystem:
 
 
 def update_event(event_type, event_data, apply_addr):
-    data = json.dumps(
-        {
+    data ={
             "event_type": event_type,
             "event_data": event_data,
         }
-    )
-
     requests.post(apply_addr, json=data)
 
 
 app = Flask(__name__)
 es = EventSystem()
 
-@app.route("/subscribe")
+
+@app.route("/invoke", methods=['POST'])
+def invoke():
+    data = request.json
+    es.invoke(event_type=data["event_type"], event_data=data["event_data"])
+    return "", 200
+
+
+@app.route("/subscribe", methods=['POST'])
 def subscribe():
-    data = request.get_json()
+    data = request.json
     sub_addr = data["apply_addr"]
     event_type = data["event_type"]
     print(f'ES SUB: {sub_addr} || {event_type}', flush=True)
@@ -45,15 +50,10 @@ def subscribe():
     return "", 200
 
 
-@app.route("/invoke")
-def invoke():
-    data = request.get_json()
-    es.invoke(event_type=data["event_type"], event_data=data["event_data"])
-    return "", 200
-
 
 if __name__ == '__main__':
-    app.run("localhost", port=5234)
+    addr, port = sys.argv[1], sys.argv[2]
+    app.run(addr, int(port))
 
 
 
