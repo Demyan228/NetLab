@@ -3,19 +3,19 @@
 
 
 void* app(void*){
-    system("python3 app.py localhost:6101 http://localhost:6100");
+    system("python3 app.py 6100");
 }
 
 void* gui(void*){
-    system("python3 gui/gui.py localhost:6102 http://localhost:6100");
+    system("python3 gui/gui.py localhost:6101 http://localhost:6100");
 }
 
 void* trainer(void*){
-    system("python3 trainer/trainer.py localhost:6103 http://localhost:6100");
+    system("python3 trainer/trainer.py localhost:6102 http://localhost:6100");
 }
 
 void* assembler(void*){
-    system("python3 assembler/assembler.py localhost:6104 http://localhost:6100");
+    system("python3 assembler/assembler.py localhost:6103 http://localhost:6100");
 }
 
 int main() {

@@ -1,12 +1,6 @@
 from __future__ import annotations
 import os
 from datetime import datetime
-from deep_translator import GoogleTranslator
-
-
-en_to_ru = GoogleTranslator(source='english', target='russian').translate
-ru_to_en = GoogleTranslator(source='russian', target='english').translate
-
 
 class Logger:
 

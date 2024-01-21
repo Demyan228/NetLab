@@ -54,8 +54,8 @@ def subscribe():
 
 
 if __name__ == '__main__':
-    addr, port = sys.argv[1], sys.argv[2]
-    app.run(addr, int(port))
+    port = sys.argv[1]
+    app.run("localhost", int(port))
 
 
 
